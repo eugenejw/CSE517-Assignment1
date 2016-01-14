@@ -7,7 +7,7 @@ import pickle
 
 class gen_corpus(object):
     def __init__(self):
-        self.inf_test = "test.txt"
+        self.inf_test = "tail.txt"
         self.inf = "cse517_tweet_scan"
         #ngram limit
         self.limit = 9
@@ -60,6 +60,8 @@ class gen_corpus(object):
         """
         limit = self.limit
         res = []
+        s = u"\u0002" + s + u"\u0003"
+        print s
         for i in xrange(min(len(s), limit)):
             tmp_lst = []
             for j in self._ngrams(s, i+1, i+1):
@@ -74,11 +76,11 @@ class gen_corpus(object):
         main function
         """
         try:
-            total_count = sum(1 for line in open(self.inf))
+            total_count = sum(1 for line in open(self.inf_test))
             print total_count
             timer = time.time()
             interval = 10000
-            with open(self.inf, "r") as inf:
+            with open(self.inf_test, "r") as inf:
 
                 line_count = 0
                 for line in inf:
